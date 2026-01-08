@@ -170,7 +170,7 @@
 		"description": "Install ROS2 launch files in setup.py"
 	},
 
-	// interface
+	// interfaces
 	"ROS2 Interface Package XML": {
 		"scope": "xml",
 		"prefix": "ros2_interfaces_xml",
