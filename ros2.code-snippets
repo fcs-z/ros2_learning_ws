@@ -1,0 +1,199 @@
+{
+	// Place your 全局 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	},
+
+	// cpp node
+	"ROS2 C++ Node": {
+		"scope": "cpp",
+		"prefix": "ros2_cpp_node",
+		"body": [
+			"#include \"rclcpp/rclcpp.hpp\"",
+			"",
+			"",
+			"class ${1:SimpleNode} : public rclcpp::Node{",
+			"public:",
+			"    ${1:SimpleNode}() : Node(\"${2:simple_node}\"){",
+			"        RCLCPP_INFO(this->get_logger(), \"${2:simple_node} has been created\");",
+			"        ",
+			"    }",
+			"private:",
+			"    ",
+			"};",
+			"",
+			"int main(int argc, char * argv[]){",
+			"    rclcpp::init(argc, argv);",
+			"    auto node = std::make_shared<${1:SimpleNode}>();",
+			"    rclcpp::spin(node);",
+			"    rclcpp::shutdown();",
+			"    return 0;",
+			"}"
+		],
+		"description": "ROS2 C++ basic node template"
+  	},
+	// cpp node install
+	"ROS2 Cpp Node CMake": {
+		"scope": "plaintext",
+		"prefix": "ros2_cpp_node_install",
+		"body": [
+			"add_executable(${1:node_name} src/${1:node_name}.cpp)",
+			"",
+			"ament_target_dependencies(",
+			"  ${1:node_name}",
+			"  \"rclcpp\"",
+			")",
+			"",
+			"install(TARGETS",
+			"  ${1:node_name}",
+			"  DESTINATION lib/\\${PROJECT_NAME}",
+			")"
+		],
+		"description": "ROS2 C++ node build and install (rclcpp)"
+	},
+
+	// python node
+	"ROS2 Python Node": {
+		"scope": "python",
+		"prefix": "ros2_py_node",
+		"body": [
+			"import rclpy",
+			"from rclpy.node import Node",
+			"",
+			"",
+			"class ${1:SimpleNode}(Node):",
+			"    def __init__(self):",
+			"        super().__init__('${2:simple_node}')",
+			"        self.get_logger().info('${2:simple_node} has been created')",
+			"",
+			"",
+			"def main(args=None):",
+			"    rclpy.init(args=args)",
+			"    node = ${1:SimpleNode}()",
+			"    rclpy.spin(node)",
+			"    rclpy.shutdown()",
+			"",
+			"",
+			"if __name__ == '__main__':",
+			"    main()"
+		],
+		"description": "ROS2 Python basic node template"
+	},	
+	// python node install
+	"ROS2 Python Entry Point": {
+		"scope": "python",
+		"prefix": "ros2_py_node_install",
+		"body": [
+		  	"'${1:node_name} = ${2:package_name}.${1:node_name}:main',"
+		],
+		"description": "ROS2 python console_scripts entry point"
+	},
+
+	// launch
+	"ROS2 Launch File Template": {
+		"scope": "python",
+		"prefix": "ros2_launch",
+		"body": [
+			"from launch import LaunchDescription",
+			"from launch_ros.actions import Node",
+			"# 封装终端指令相关类--------------",
+			"# from launch.actions import ExecuteProcess",
+			"# from launch.substitutions import FindExecutable",
+			"# 参数声明与获取-----------------",
+			"# from launch.actions import DeclareLaunchArgument",
+			"# from launch.substitutions import LaunchConfiguration",
+			"# 文件包含相关-------------------",
+			"# from launch.actions import IncludeLaunchDescription",
+			"# from launch.launch_description_sources import PythonLaunchDescriptionSource",
+			"# 分组相关----------------------",
+			"# from launch_ros.actions import PushRosNamespace",
+			"# from launch.actions import GroupAction",
+			"# 事件相关----------------------",
+			"# from launch.event_handlers import OnProcessStart, OnProcessExit",
+			"# from launch.actions import ExecuteProcess, RegisterEventHandler, LogInfo",
+			"# 获取功能包下share目录路径-------",
+			"# from ament_index_python.packages import get_package_share_directory",
+			"",
+			"import os",
+			"",
+			"",
+			"def generate_launch_description():",
+			"    ",
+			"    # TODO",
+			"    ",
+			"    ",
+			"    return LaunchDescription([",
+			"        ",
+			"    ])"
+		],
+		"description": "ROS2 Python launch file template"
+	},
+	// cpp launch install
+	"ROS2 Cpp Launch Install CMake": {
+		"scope": "plaintext",
+		"prefix": "ros2_cpp_launch_install",
+		"body": [
+			"install(DIRECTORY",
+			"  launch",
+			"#  rviz",
+			"#  worlds",
+			"#  params",
+			"  DESTINATION share/\\${PROJECT_NAME}",
+			")"
+		],
+		"description": "Install launch and params directories for ROS2 C++ package"
+	},	
+	// python launch install
+	"ROS2 Python Launch Install SetUp": {
+		"scope": "python",
+		"prefix": "ros2_python_launch_install",
+		"body": [
+			"from glob import glob",
+			"",
+			"('share/' + package_name + '/launch', glob('launch/*.launch.py')),",
+			"# ('share/' + package_name + '/rviz', glob('rviz/*.rviz')),",
+			"# ('share/' + package_name + '/worlds', glob('worlds/*.world')),",
+			"# ('share/' + package_name + '/params', glob('params/*.yaml')),"		  
+		],
+		"description": "Install ROS2 launch files in setup.py"
+	},
+
+	// interface
+	"ROS2 Interface Package XML": {
+		"scope": "xml",
+		"prefix": "ros2_interfaces_xml",
+		"body": [
+			"<build_depend>rosidl_default_generators</build_depend>",
+			"<exec_depend>rosidl_default_runtime</exec_depend>",
+			"<!-- <depend>action_msgs</depend> -->",
+			"<member_of_group>rosidl_interface_packages</member_of_group>"
+		],
+		"description": "ROS2 interface package dependencies for msg/srv/action"
+	},
+	"ROS2 Cpp Interfaces CMake": {
+		"scope": "plaintext",
+		"prefix": "ros2_interfaces_cpp",
+		"body": [
+			"find_package(rosidl_default_generators REQUIRED)",
+			"",
+			"rosidl_generate_interfaces(\\${PROJECT_NAME}",
+			"  \"msg/${1:Student}.msg\"",
+			"  \"srv/${2:AddInts}.srv\"",
+			"  \"action/${3:Progress}.action\"",
+			")"
+		],
+		"description": "Generate ROS2 msg/srv/action interfaces (C++)"
+	},
+}
